@@ -1,0 +1,40 @@
+import wixData from 'wix-data';
+
+
+$w.onReady(function () {
+	// $w('#successMsg').hide()
+	
+});
+
+export function submit_click(event) {
+	if($w("#name").value===""|| $w("#phone").value==="" || $w("#emmil").value===""){
+		$w("#erorr").show();
+		setTimeout(() => {
+			$w("#erorr").hide();
+		}, 800);
+	}else{
+		let toSave = {
+  "title": $w("#name").value,
+  "email":   $w("#emmil").value,
+  "mobile":   $w("#phone").value
+ 
+};
+
+wixData.save("myFormData", toSave)
+	.then( (results) => {
+		$w('#successMsg').show();
+		$w("#name").value="";
+		$w("#emmil").value="";
+		$w("#phone").value="";
+
+
+		setTimeout(() => {
+			$w('#successMsg').hide();
+		}, 800);
+	} )
+	.catch( (err) => {
+		let errorMsg = err;
+	} );
+
+	}
+}
